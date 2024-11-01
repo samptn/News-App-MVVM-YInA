@@ -59,7 +59,7 @@ val newsList = mutableListOf(
 
 class NewsRepo {
     suspend fun getNews(): MutableList<News> {
-        delay(1000)
+        delay(3000)
         return newsList
     }
 }
