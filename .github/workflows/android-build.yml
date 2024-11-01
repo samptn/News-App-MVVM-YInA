@@ -1,0 +1,35 @@
+name: Build Android APK
+
+on:
+  push:
+    branches:
+      - main  # Change to your default branch if different
+  pull_request:
+    branches:
+      - main  # Change to your default branch if different
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'  # Specify the JDK version
+          distribution: 'adopt'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew assembleRelease  # Change to 'assembleDebug' for debug APK
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: apk
+          path: app/build/outputs/apk/release/app-release.apk  # Adjust the path as necessary

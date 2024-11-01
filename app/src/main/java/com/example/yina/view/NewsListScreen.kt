@@ -81,9 +81,7 @@ fun NewsListScreen(newsViewModel: NewsViewModel) {
                 )
             }
         }
-        LazyColumn(
-
-        ) {
+        LazyColumn {
             news.value?.let { newsItems ->
                 items(
                     newsItems.size
