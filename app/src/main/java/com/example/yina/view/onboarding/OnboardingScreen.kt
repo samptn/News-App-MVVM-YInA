@@ -62,7 +62,7 @@ fun OnboardingScreen(navController: NavHostController) {
         ) {
             Spacer(modifier = Modifier.weight(0.3f))
             Text(
-                text = "FLASH.CO",
+                text = "Welcome",
                 style = TextStyle(
                     fontSize = 60.sp,
                     fontWeight = FontWeight.W500,
@@ -72,7 +72,7 @@ fun OnboardingScreen(navController: NavHostController) {
             )
             Spacer(modifier = Modifier.weight(0.3f))
             Text(
-                text = "SUPERCHARGE \nYOUR \nSHOPPING",
+                text = "To \nYOUR \nNEWS",
                 style = TextStyle(
                     fontSize = 30.sp,
                     fontWeight = FontWeight.W500,
