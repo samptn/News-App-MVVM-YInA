@@ -1,5 +1,6 @@
-package com.example.yina.view
+package com.example.yina.view.home
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Share
@@ -31,12 +33,15 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
+import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
+import coil3.compose.LocalPlatformContext
 import com.example.yina.model.News
 import com.example.yina.viewmodel.NewsViewModel
 
 @Composable
-fun NewsListScreen(newsViewModel: NewsViewModel) {
+fun NewsListScreen(newsViewModel: NewsViewModel, navController: NavHostController) {
     val news = newsViewModel.news.observeAsState()
     val count = newsViewModel.count.observeAsState()
     Column {
@@ -57,7 +62,8 @@ fun NewsListScreen(newsViewModel: NewsViewModel) {
 
             ) {
                 Icon(
-                    imageVector = Icons.Default.Menu, contentDescription = "Menu"
+                    imageVector = Icons.Default.Menu,
+                    contentDescription = "Menu"
                 )
             }
             Text(
@@ -71,12 +77,13 @@ fun NewsListScreen(newsViewModel: NewsViewModel) {
             )
             IconButton(
                 onClick = {
-                    newsViewModel.increment()
-                }, modifier = Modifier.padding(0.dp)
+                    navController.popBackStack()
+                },
+                modifier = Modifier.padding(0.dp)
 
             ) {
                 Icon(
-                    imageVector = Icons.Default.Notifications,
+                    imageVector = Icons.Default.Close,
                     contentDescription = "Notifications",
                 )
             }
@@ -97,6 +104,7 @@ fun NewsListScreen(newsViewModel: NewsViewModel) {
 
 @Composable
 fun NewsCard(news: News) {
+    val context = LocalPlatformContext.current
     Column(
         modifier = Modifier
             .padding(16.dp, 8.dp)
@@ -133,7 +141,17 @@ fun NewsCard(news: News) {
                     )
                     IconButton(
                         onClick = {
-
+                            val sendIntent: Intent = Intent().apply {
+                                action = Intent.ACTION_SEND
+                                putExtra(Intent.EXTRA_TEXT, "https://developer.android.com/training/sharing/")
+                                putExtra(Intent.EXTRA_TEXT, news.heading + "\n" + news.desc)
+                                type = "text/plain"
+                            }
+                            val shareIntent = Intent.createChooser(sendIntent, null)
+                            startActivity(
+                                context,
+                                shareIntent, null
+                            )
                         }, modifier = Modifier.align(
                             Alignment.TopEnd
                         )
@@ -146,7 +164,6 @@ fun NewsCard(news: News) {
                                 .padding(4.dp),
                             contentDescription = "Share",
                             tint = Color.Magenta
-
                         )
                     }
                 }

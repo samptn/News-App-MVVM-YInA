@@ -8,8 +8,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
+import com.example.yina.routing.MyApp
 import com.example.yina.ui.theme.YInATheme
-import com.example.yina.view.NewsListScreen
 import com.example.yina.viewmodel.NewsViewModel
 
 class MainActivity : ComponentActivity() {
@@ -18,14 +18,20 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             YInATheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NewsListScreen(newsViewModel)
+                    MyApp(
+                        newsViewModel = newsViewModel
+                    )
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        println("DebugPrint $this Destroyed")
+        super.onDestroy()
     }
 }
