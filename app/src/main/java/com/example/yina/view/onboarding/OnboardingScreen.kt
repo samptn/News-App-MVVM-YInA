@@ -56,7 +56,6 @@ fun OnboardingScreen(navController: NavHostController) {
             contentScale = ContentScale.FillBounds
         )
         Column(
-
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -72,7 +71,7 @@ fun OnboardingScreen(navController: NavHostController) {
             )
             Spacer(modifier = Modifier.weight(0.3f))
             Text(
-                text = "To \nYOUR \nNEWS",
+                text = "SAMPLE \nTEXT \nTO",
                 style = TextStyle(
                     fontSize = 30.sp,
                     fontWeight = FontWeight.W500,

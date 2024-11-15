@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import com.example.yina.routing.MyApp
 import com.example.yina.ui.theme.YInATheme
-import com.example.yina.view.onboarding.OnboardingScreen
 import com.example.yina.viewmodel.NewsViewModel
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +18,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             YInATheme {
-
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -30,5 +28,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        println("DebugPrint $this Destroyed")
+        super.onDestroy()
     }
 }

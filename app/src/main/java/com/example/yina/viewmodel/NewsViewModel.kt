@@ -1,5 +1,7 @@
 package com.example.yina.viewmodel
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +11,8 @@ import com.example.yina.repo.NewsRepo
 import kotlinx.coroutines.launch
 
 class NewsViewModel : ViewModel() {
+
+
     private val _newsRepo = NewsRepo()
     private val _news = MutableLiveData<MutableList<News>>()
     val news: LiveData<MutableList<News>> = _news
@@ -19,7 +23,7 @@ class NewsViewModel : ViewModel() {
         getNews()
     }
 
-     private fun getNews() {
+    private fun getNews() {
         viewModelScope.launch {
             println("DebugPrint starting of data get")
             val result = _newsRepo.getNews()
